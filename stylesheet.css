@@ -1,3 +1,26 @@
+* {
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+.wrapper {
+	min-height: 100%;
+	margin: 0 auto -50px; /* the bottom margin is the negative value of the footer's height */
+	z-index: 2;
+}
+
+.footer, .push {
+	height: 50px; /* .push must be the same height as .footer */
+}
+
+/*
+Sticky Footer by Ryan Fait
+http://ryanfait.com/
+*/
+
 body {
 	background-color: #80B9FF;
 }
@@ -9,16 +32,90 @@ body {
 }
 
 .jumbotron {
-	background-color: #F8F8FF;
-}
-
-.footer {
-	padding-top: 2em;
-  background-color: #f8f8f8;
-  padding-bottom: 2em;
+	margin-top: 15px;
+	background-color: #B0C4DE;
 }
 
 .dropdown-label {
 	font-weight: bold;
 	padding-left: 5px;
+}
+
+#mainContainer {
+	background-color: #F8F8FF;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+
+#interactivetitle {
+	font-family: fantasy, serif;
+	font-size: 3em;
+}
+
+.footer {
+	margin: 0 auto;
+	padding-top: 15px;
+	z-index: 2;
+	background-color:rgba(0,0,0,0.2);	
+	color: #FFFFFF;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+#bg {
+	z-index: -1;
+  position: fixed; 
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+}
+
+#bg img {
+	opacity: 0.3;
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  min-width: 50%;
+  min-height: 50%;
+}
+
+.cipherHeading {
+	display: inline;
+}
+
+.cipherWells {
+	margin-top: 10px;
+}
+
+.cipherInfoLink {
+	margin-top: 10px;
+}
+
+.messageTitle {
+	font-weight: bold;
+}
+
+textarea {
+	resize: none;
+}
+
+.cipherControls {
+	border-top: 1px solid #A9A9A9;
+	padding-top: 15px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.messageButtons {
+	margin-top: 15px;
+	width: 160px;
+}
+
+.cipherTextBox {
+	margin-top: 15px;
 }

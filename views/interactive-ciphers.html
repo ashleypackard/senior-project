@@ -1,0 +1,82 @@
+<div>
+	<div class="page-header">
+			<span id="interactivetitle">{{ciphertype | uppercase}} CIPHER</span>
+	</div>
+	
+	<div class="row">
+
+		<div class="col-md-3">
+
+			<div>
+				<span class="glyphicon glyphicon-asterisk"></span>
+				<h3 class="cipherHeading">Instructions</h3>
+
+				<div class="cipherWells">
+				  <div class="well well-lg">
+				  	<div>
+				  		{{data.instructions}}
+				  	</div>
+				  </div>
+				</div>
+			</div>	
+
+			<div class="cipherControls">
+				<div class="input-group">
+				  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-lg"></i></span>
+				  <input type="text" class="form-control" placeholder="Key" aria-describedby="basic-addon1">
+				</div>
+
+				<button type="button" class="btn btn-info messageButtons"> <i class="fa fa-lock fa-lg"></i> Encypt Message </button>
+				<button type="button" class="btn btn-info messageButtons"> <i class="fa fa-unlock fa-lg"></i> Decrypt Message </button>
+			</div>
+		</div>
+
+		<div class="col-md-9">
+			<div>
+				<span class="glyphicon glyphicon-asterisk"></span>
+				<h3 class="cipherHeading">Introduction</h3>
+
+				<div class="cipherWells">
+				  <div class="well well-lg">
+				  	<div>
+				  		{{data.introtext}}
+				  	</div>
+				  	<div class="cipherInfoLink">
+				  		<span class="glyphicon glyphicon-question-sign"></span>
+				  		<a href="{{data.link}}" target="_blank">Want more information?</a>
+				  	</div>
+				  </div>
+				</div>
+			</div>	
+
+			<div>
+				<span class="glyphicon glyphicon-asterisk"></span>
+				<h3 class="cipherHeading"> Hands on Experience </h3>
+
+				<div class="cipherWells">
+				  <div class="well well-lg">
+						
+						<div>
+							<p class="messageTitle">Original Text</p>
+				  		<input id="originalText" class="form-control" type="text" placeholder="Original plain text" readonly>
+						</div>
+
+						<div class="cipherTextBox">
+							<p class="messageTitle">Plain Text</p>
+							<textarea class="form-control" rows="5" placeholder="Enter the plain text for encryption"></textarea>
+						</div>
+
+						<div class="cipherTextBox">
+					  	<p class="messageTitle">Encrypted Text</p>
+							<textarea class="form-control" rows="5" placeholder="Enter the encrypted text for decryption"></textarea>
+						</div>
+
+				  </div>
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
+	
+</div>
