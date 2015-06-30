@@ -113,9 +113,37 @@ textarea {
 
 .messageButtons {
 	margin-top: 15px;
-	width: 160px;
+	width: 165px;
+	text-align: left;
+}
+
+.messageIcons {
+	width: 25px;
 }
 
 .cipherTextBox {
 	margin-top: 15px;
+}
+
+.instruction-header {
+	font-weight: bold;
+	display: block;
+	text-align: center;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.error {
+	color: #DC143C;
+	font-size: 11px;
+}
+
+#more_info {
+	border-top: 1px solid black;
+  width: 40%;
+  padding-top: 10px;
+  font-weight: bold;
+  display: block;
 }

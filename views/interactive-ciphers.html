@@ -14,20 +14,33 @@
 				<div class="cipherWells">
 				  <div class="well well-lg">
 				  	<div>
-				  		{{data.instructions}}
+				  		{{data.basicInstructions}}
+				  		<span class="instruction-header">Encryption</span>
+				  		{{data.encryptInstructions}}
+				  		<span class="instruction-header">Decryption</span>
+				  		{{data.decryptInstructions}}
 				  	</div>
 				  </div>
 				</div>
 			</div>	
 
 			<div class="cipherControls">
-				<div class="input-group">
+				<div class="error-messages">
+					<div id="caesar-key-error" class="error" ng-show="isKeyANumber">
+					 	<span> *Not a valid number, must be 0-25!</span>
+					</div>
+					<div id="vigenere-key-error" class="error" ng-show="isKeyAString">
+				 		<span> *Not a valid key, must be a string!</span>
+					</div>
+				</div>
+				<div id="key" class="input-group">
 				  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-lg"></i></span>
-				  <input type="text" class="form-control" placeholder="Key" aria-describedby="basic-addon1">
+				  <input id="key_text" type="text" class="form-control" placeholder="Key" aria-describedby="basic-addon1">
 				</div>
 
-				<button type="button" class="btn btn-info messageButtons"> <i class="fa fa-lock fa-lg"></i> Encypt Message </button>
-				<button type="button" class="btn btn-info messageButtons"> <i class="fa fa-unlock fa-lg"></i> Decrypt Message </button>
+				<button type="button" class="btn btn-info messageButtons" ng-click="cipherCall(ciphertype, 'encrypt')"> <i class="fa fa-lock fa-lg messageIcons"></i> Encrypt Message </button>
+				<button type="button" class="btn btn-info messageButtons" ng-click="cipherCall(ciphertype, 'decrypt')"> <i class="fa fa-unlock fa-lg messageIcons"></i> Decrypt Message </button>
+				<button type="button" class="btn btn-info messageButtons" ng-click="clearCiphers()"> <i class="fa fa-eraser fa-lg messageIcons"></i> Start Over </button>
 			</div>
 		</div>
 
@@ -42,8 +55,9 @@
 				  		{{data.introtext}}
 				  	</div>
 				  	<div class="cipherInfoLink">
+				  		<span id="more_info"> Want more information? </span>
 				  		<span class="glyphicon glyphicon-question-sign"></span>
-				  		<a href="{{data.link}}" target="_blank">Want more information?</a>
+				  		<a href="{{data.link}}" target="_blank">Check out this wikipedia link!</a>
 				  	</div>
 				  </div>
 				</div>
@@ -51,24 +65,24 @@
 
 			<div>
 				<span class="glyphicon glyphicon-asterisk"></span>
-				<h3 class="cipherHeading"> Hands on Experience </h3>
+				<h3 class="cipherHeading"> Try it out </h3>
 
 				<div class="cipherWells">
 				  <div class="well well-lg">
 						
 						<div>
-							<p class="messageTitle">Original Text</p>
-				  		<input id="originalText" class="form-control" type="text" placeholder="Original plain text" readonly>
+							<p class="messageTitle">Original {{textType}} Text</p>
+				  		<textarea id="original_text" class="form-control" rows="5" type="text" placeholder="Original plain text" readonly></textarea>
 						</div>
 
 						<div class="cipherTextBox">
 							<p class="messageTitle">Plain Text</p>
-							<textarea class="form-control" rows="5" placeholder="Enter the plain text for encryption"></textarea>
+							<textarea id="plain_text" class="form-control" rows="5" placeholder="Enter the plain text for encryption"></textarea>
 						</div>
 
 						<div class="cipherTextBox">
 					  	<p class="messageTitle">Encrypted Text</p>
-							<textarea class="form-control" rows="5" placeholder="Enter the encrypted text for decryption"></textarea>
+							<textarea id="encrypted_text" class="form-control" rows="5" placeholder="Enter the encrypted text for decryption"></textarea>
 						</div>
 
 				  </div>

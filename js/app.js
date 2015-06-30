@@ -1,7 +1,7 @@
 var app = angular.module('CipherApp', ['ngRoute']);
 
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
 
 	$routeProvider.when('/', {
 		templateUrl: 'views/home.html'
