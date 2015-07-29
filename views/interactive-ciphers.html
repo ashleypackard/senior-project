@@ -26,11 +26,17 @@
 
 			<div class="cipherControls">
 				<div class="error-messages">
+					<div id="missing-text-error" class="error" ng-show="noMessageProvided">
+					 	<span> *Please enter {{message_flag}}</span>
+					</div>
 					<div id="caesar-key-error" class="error" ng-show="isKeyANumber">
 					 	<span> *Not a valid number, must be 0-25!</span>
 					</div>
 					<div id="vigenere-key-error" class="error" ng-show="isKeyAString">
 				 		<span> *Not a valid key, must be a string!</span>
+					</div>
+					<div id="hill-key-error" class="error" ng-show="isKeyAMatrix">
+				 		<span> *Not a valid key, must be numbers delimited by '.'! Ex: 2.5.3.2</span>
 					</div>
 				</div>
 				<div id="key" class="input-group">
