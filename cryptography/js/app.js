@@ -4,10 +4,7 @@ var app = angular.module('CipherApp', ['ngRoute']);
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
 
 	$routeProvider.when('/', {
-		templateUrl: 'views/home.html'
-	})
-	.when('/home', {
-		templateUrl: 'views/home.html'
+		redirectTo: 'interactive-ciphers/caesar'
 	})
 	.when('/interactive-ciphers/:type', {
 		controller: 'InteractiveController',

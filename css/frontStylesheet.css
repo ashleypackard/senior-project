@@ -1,0 +1,56 @@
+* {
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+.footer {
+	height: 50px;
+	position: fixed;
+	padding-top: 15px;
+	bottom: 0px;
+	z-index: 9;
+	background-color:rgba(0,0,0,0.2);	
+	color: #FFFFFF;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+}
+
+body {
+	background-color: #80B9FF;
+	margin: 0 auto;
+}
+
+#section1 {
+	background-color: skyblue;
+}
+
+#section2 {
+	background-color: lightgreen;
+}
+
+#section3 {
+	background-color: goldenrod;
+}
+
+.lock-column {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#lock-middle-col {
+	padding-top: 15px;
+}
+
+#analysis-col {
+	text-align: center;
+}
+
+#caesar-img img {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
