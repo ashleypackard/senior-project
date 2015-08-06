@@ -4,6 +4,40 @@ app.controller('MainController', ['$scope', function($scope) {
   
 }]);
 
+// controller for analysis portion of website
+app.controller('AnalysisController', ['$scope', '$routeParams', 
+  function($scope, $routeParams) {
+    $scope.ciphertype = $routeParams.type;
+
+    $scope.caesar =
+    {
+        paragraph1: "The Caesar cipher can be broken with a ciphertext only attack to recover the key with no other information then a snippet of ciphertext. The keyspace is the set of integers 0-25 which makes this cipher easy to brute force. The method attempts to decrypt the message with each of the 25 keys to determine which result was most like English. Quadgram scoring was used to determine how much the resulting string resembled English. Essentially, we looked at all sets of 4 contiguous letters and their frequencies compared to that of English. We used a large representative sample of the English language to compare frequencies of 4 letters. Each key is scored with a value of how closely the resulting plain text resembles english and the highest value is most likely the encryption key. Resulting plaintexts that contained popular 4 letter combinations were given a higher score. Ciphertext only attacks are not guarenteed to find the key every time but having a larger ciphertext to work with increases the probability of success.",
+        link: "http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-caesar-cipher/",
+        link_info: "Files with samples of letter frequencies can be found at ",
+        image1: "images/caesar-cipher-crack.png"
+    }
+
+    $scope.vigenere = 
+    {
+        paragraph1: "The Vigenere Cipher can also be broken with a ciphertext only attack. There are two problems with brute forcing the Vigenere cipher. The first is that the length of the key is unknown. The second issue is that even if we had the right key length brute forcing all possible combinations of key length n would result in 26^n operations, resulting in exponential time (slow). Instead, each letter of the key was obtained indepentently of other letters. For each key length 3-20 the following steps were executed. We first start with a key consisting of only 'A' for the length of the current key. This is because 'A' does not affect the message during encryption, it's like multiplying by 1. Next, we focus on only the first letter of the key and try all combinations of the key while changing only the first letter, ex: 'BAA', 'CAA', 'DAA', etc. Each of these keys are scored using quadgram scoring. The idea is to change one letter at a time while checking the scores at each checkpoint. This process was repeated for all remaining letters of the key. Note, this is different than brute forcing all possible combinations of length n. The keys are ranked by the score they receive so the highest ranked scored is the most probably to be the key.",
+        link: "http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-vigenere-cipher-part-2/",
+        link_info: "More information about the algorithm can be found at ",
+        image1: "images/vigenere-cipher-crack.jpg"
+    }
+
+    $scope.hill =
+    {
+        paragraph1: "Coming Soon! Check back often.",
+        image1: "images/pageunderconstruction.png"
+    }
+
+    // access the appropriate cipherType when that page is called be allowing the page to use the data variable!
+    $scope.data = $scope[$scope.ciphertype];
+
+  }
+]);
+
+// controller for interactive portion of website
 app.controller('InteractiveController', ['$scope', '$routeParams', 'cipherRunner', 
   function($scope, $routeParams, cipherRunner) {
     $scope.ciphertype = $routeParams.type;
@@ -30,7 +64,7 @@ app.controller('InteractiveController', ['$scope', '$routeParams', 'cipherRunner
     {
       	introtext: "The Hill Cipher is the most secure encryption method of the three interactive ciphers displayed here since it uses linear algebra. A matrix is used as the key unlike the shift ciphers which use a word or single integer. The matrix must be a square matrix, nxn. The larger the size of n, then the harder the message will be to crack. This cipher requires a strict alphabet and only characters in the alphabet can be used in a message. The alphabet size must be prime. The size of our alphabet is 89, in order to include almost every character. To encrypt a message, the message itself is turned into a matrix using the alphabet index of each letter as the corresponding integers. Then this matrix is multiplied by the key to arrive at a new matrix. This matrix is then turned back into a string. To decrypt a message, the same process happens to the message again except the resulting matrix is multiplied by the inverse of the key. To find the inverse of a matrix we use modulo division to keep the matrix indeces within the alphabet size, in this case 0-88. Meaning that if a particular index after multiplication is 450, if we mod by 89, we're left with 5, which corresponds to the fifth letter in the alphabet, whereas 450 is out of range.",
       	link: "https://en.wikipedia.org/wiki/Hill_cipher",
-      	basicInstructions: "Requires a square matrix as the key and a messgage. Click 'Start Over' if you want to clear all text boxes.",
+      	basicInstructions: "Requires a square matrix as the key and a messgage. The matrix cannot have a determinant of 0. Click 'Start Over' if you want to clear all text boxes.",
         encryptInstructions: "Enter the square matrix separated by periods, ex: 2.3.6.4, in the key text box below. Then enter your plain text message and click the 'Encrypt Message' button.",
         decryptInstructions: "Immediately decrypt your message after encrypting by clicking the 'Decrypt Message' button. If you have another encrypted message you'd like decrypted then enter the message into the text box labeled 'Encrypted Text', type the appropriate key into the key text box and click the 'Decrypt Message' button."
     }
@@ -41,7 +75,7 @@ app.controller('InteractiveController', ['$scope', '$routeParams', 'cipherRunner
    	$scope.data = $scope[$scope.ciphertype];
 
     $scope.clearCiphers = function(){
-      $("#original_text").val("");
+      $("#original_text").text("");
       $("#plain_text").val("");
       $("#encrypted_text").val("");
       $("#key_text").val("");
@@ -117,51 +151,68 @@ app.controller('InteractiveController', ['$scope', '$routeParams', 'cipherRunner
       return true;
     }
 
+    // function for refilling text box after error
+    function refillMessage(encryptFlag, message) {
+      if(encryptFlag == 'encrypt') {
+          $("#plain_text").val(message);
+        } else {
+          $("#encrypted_text").val(message);
+        }
+    }
+
     // function call for encrypting and decrypting!
     $scope.cipherCall = function getCipherText(cipherName, encryptFlag) {
       // first check to see if there is any input to encrypt or decrypt and the key is valid
-      var isMessagePresent = isMessageProvided(encryptFlag);
+      if(!isMessageProvided(encryptFlag)) {
+        return;
+      }
 
       // check if input is correct
       var key = $("#key_text").val();
-      var isValidKey = isKeyValid(key);     
+      if(!isKeyValid(key)) {
+        return;
+      }     
 
       // if the key is a number then continue, otherwise a new key needs to be entered
-      if(isMessagePresent && isValidKey){
-        $("#key").removeClass("has-error");
+      $("#key").removeClass("has-error");
 
-        // if we're encrypting then we want to get the plain text to convert to encrypted text else we want to grab the encrypted text and convert to plain text
-        // setup original text if we're doing an ecryption, else delete it
-        var message;
-        if(encryptFlag == 'encrypt') {
-          message = $("#plain_text").val();
-          $("#original_text").val(message);
-          $("#plain_text").val("");
-        } else {
-          message = $("#encrypted_text").val();
-          $("#original_text").val(message);
-          $("#encrypted_text").val("");
-        }
+      // if we're encrypting then we want to get the plain text to convert to encrypted text else we want to grab the encrypted text and convert to plain text
+      // setup original text if we're doing an ecryption, else delete it
+      var message;
+      if(encryptFlag == 'encrypt') {
+        message = $("#plain_text").val();
+        $("#original_text").text(message);
+        $("#plain_text").val("");
+      } else {
+        message = $("#encrypted_text").val();
+        $("#original_text").text(message);
+        $("#encrypted_text").val("");
+      }
 
-        cipherRunner.getCipherText(cipherName, message, key, encryptFlag)
-          .success(function (data) {
-              console.log(data.output[0]);
-              console.log(data);
-              
-              if(data.success) {
-              // when the data is returned display it in the appropriate text box
-              var determineTextBox = (encryptFlag == 'encrypt') ? $("#encrypted_text") : $("#plain_text");
-              $scope.textType = (encryptFlag == 'encrypt') ? "Plain" : "Encrypted";
-              determineTextBox.val(data.output[0]);
-            }
-            else {
-             alert('errror') ;
-            }
-          })
-          .error(function (error) {
-              $scope.status = 'Unable to process ' + cipherName + ' ' + encryptFlag + 'ion: ' + error.message;
-          });
-      } 
+      // encode the message for special characters!!
+      var encoded_message = encodeURIComponent(message);
+
+      cipherRunner.getCipherText(cipherName, encoded_message, key, encryptFlag)
+        .success(function (data) {
+            
+            if(data.success) {
+            // when the data is returned display it in the appropriate text box
+            var determineTextBox = (encryptFlag == 'encrypt') ? $("#encrypted_text") : $("#plain_text");
+            $scope.textType = (encryptFlag == 'encrypt') ? "Plain" : "Encrypted";
+            
+            var return_message = decodeURIComponent(data.output);
+            determineTextBox.val(return_message);
+          }
+          else {
+            alert('Unable to process ' + cipherName + ' ' + encryptFlag + 'ion.');
+            refillMessage(encryptFlag, message);
+          }
+        })
+        .error(function (error) {
+            alert('Unable to process ' + cipherName + ' ' + encryptFlag + 'ion.');
+            refillMessage(encryptFlag, message);
+        });
+     
  
     } 
  }

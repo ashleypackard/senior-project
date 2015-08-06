@@ -2,85 +2,51 @@
 <html ng-app="CipherApp">
 	<head>
 		<title> Cryptography </title>
+		<base href="/senior-project/" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/frontStylesheet.css">
-		<link rel="stylesheet" href="css/jquery.fullPage.css">
+		<link rel="stylesheet" href="css/stylesheet.css">
+		
 	</head>
 	<body>
+		<div class="wrapper">
+
+			<div ng-controller="MainController">
+				
+				<!-- Include the header -->
+				<div ng-include src="'views/header.html'"></div>
+				
+				<!-- Include the middle view, the main part of the website! -->
+				<div class="container" id="mainContainer">
+					<div ng-view></div>
+				</div>
+			</div>		
+			<div class="push"></div>
+		</div>
+
 		<!-- Include the footer -->
 		<div class="footer">
 			<span>Created By: Ashley Packard and Mike Kucharski  |  Summer 2015  |  Senior Project</span>
 		</div>
 
-		<div id="fullpage">
-			<div class="section" id="section1">
-				<div class="container">
-					<div class="page-header">
-					  <h1>ENCRYPTION <small>What is it?</small></h1>
-					</div>
-					<p>Encryption is the means of keeping data safe by encoding it such that only the intended parties can read it. Even though the encryption methods are publically known, the security lies in the key used in the cipher. Online services such as online banking, social media, and cloud storage use encryption all the time by encoding data before sending it from machine to machine.</p>
-
-					<p>We conducted a research based project on ciphers intended to educate ourselves and the audience of the basics of cryptography. We implemented a few popular ciphers from scratch in python to understand how they function.</p> 
-
-					<ul>
-						<li>Caesar - Simple Shift cipher</li>
-						<li>Vigen&egrave;re - Multiple Shift cipher</li>
-						<li>Hill - Matrix key cipher</li>
-					</ul>
-					<div class="col-md-2 lock-column">
-						<i class="fa fa-lock fa-5x"></i>
-					</div>
-					<div class="col-md-8" id="lock-middle-col">
-						<p>Our interactive website allows users to encrypt and decrypt messages using our scripts. In addition, we performed cryptanalysis attacks on the ciphers to study their weaknesses. Read on to learn more or <a href="cryptography/">Start Encrypting!</a></p>
-					</div>
-					<div class="col-md-2 lock-column">
-						<i class="fa fa-unlock-alt fa-5x"></i>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="section" id="section2">
-				<div class="container">
-					<div class="page-header">
-					  <h1>CRYPTANALYSIS <small>How does it work?</small></h1>
-					</div>
-
-					<div class="col-md-7" id="analysis-col">
-						<p>Cryptanalysis is the study of weaknesses of a cipher that will allow the plaintext to be acquired from the ciphertext without knowledge of the key. We analyzed how to break each of the three historical ciphers.</p>
-
-						<p>A shared key is used to encrypt the plaintext to ciphertext and decrypt the ciphertext to plaintext. The format of the key depends on the implementation of the cipher. For example, a Caesar key is a number 1-26, the Vigenere key is an alphabetic string, and the Hill key is a square matrix. The typical approach is to brute force a set of reasonable keys and then perform statistical analysis on the letter combinations of the plaintext in question. </p>
-
-						<p>The frequency distribution of letter combinations is compared to that of the English language. Which ever plaintext receives the highest score is most probable to be English. An example of this is shown to the left with the Caesar Cipher.</p>
-
-						<a href="https://github.com/mikekucharski/crypto_analysis" class="btn btn-info" target="_blank">Learn More</a>
-					</div>
-
-					<div class="col-md-5" id="caesar-img">
-						<img src="images/caesar-cipher-crack.png">
-					</div>
-					
-				</div>
-			</div>
-
-			<div class="section" id="section3">
-				<div class="container">
-					<div class="page-header">
-					  <h1>LET'S GET STARTED <small>Get Ready, Get Set, Go!</small></h1>
-					</div>
-					<a href="cryptography/" class="btn btn-info">Start Encrypting</a>
-				</div>
-			</div>
-
+		<div id="bg">
+		  <img src="images/bg.jpg">
 		</div>
 		
 		<!-- Javascript -->
 		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<script src="js/jquery-ui.min.js"></script>
-		<script src="js/jquery.fullPage.min.js"></script>
-		<script src="js/fullpage.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular-route.min.js"></script>
+
+		<!-- Modules -->
+    <script src="js/app.js"></script>
+
+    <!-- Controllers -->
+    <script src="js/controllers/MainController.js"></script>
+
+    <!-- Factories -->
+    <script src="js/factories/cipherRunner.js"></script>
 
 	</body>
 </html>

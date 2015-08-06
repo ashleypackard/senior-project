@@ -31,11 +31,6 @@ body {
 	font-weight: bold;
 }
 
-.jumbotron {
-	margin-top: 15px;
-	background-color: #B0C4DE;
-}
-
 .dropdown-label {
 	font-weight: bold;
 	padding-left: 5px;
@@ -45,9 +40,10 @@ body {
 	background-color: #F8F8FF;
 	border-radius: 5px;
 	margin-bottom: 15px;
+	box-shadow: 5px 5px 15px #666666;
 }
 
-#interactivetitle {
+.pagetitle {
 	font-family: fantasy, serif;
 	font-size: 3em;
 }
@@ -104,6 +100,10 @@ textarea {
 	resize: none;
 }
 
+.box-background {
+	padding-bottom: 25px;
+}
+
 .cipherControls {
 	border-top: 1px solid #A9A9A9;
 	padding-top: 15px;
@@ -146,4 +146,17 @@ textarea {
   padding-top: 10px;
   font-weight: bold;
   display: block;
+}
+
+#bottom-row {
+	padding-top: 25px;
+}
+
+#analysis-img img {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+#original_text {
+	color: grey;
 }
